@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: #bfe7ed;
+    }
+  </style>
+  <script src="./jquery1.7.2.min.js"></script>
+</head>
+
+<body>
+  <!-- 单文件 -->
+  <input type="file" id="file1"><br>
+  <input type="button" onclick="submitSingleFile(userMsg)" value="提交"><br>
+  <!-- 多文件 -->
+  <input type="file" id="file2" multiple><br>
+  <input type="button" onclick="submitMultiFile(userMsg)" value="提交"><br>
+
+  <script>
+    // 上传请求必要参数
+    var userMsg = {
+      username: 18888888888, // 用户名
+      token: 'A886C737-C3A7-08FE-2B80-E1A525613DB7', // 用户登录后获取的token
+      mod: 'shop', // 项目模块名称
+      dir: 'images' // 传输的文件类型
+    };
+
+    var baseUrl = 'http://one.jin520.cn/DynamicApi/release/upload';
+    // DynamicApi/release/upload/phone/{phone}/accesstoken/{accesstoken}/mod/{mod}/dir/{dir}/type/{type} 后台指定的请求地址格式
+    var uploadUrl = baseUrl + '/phone/' + userMsg.username + '/accesstoken/' + userMsg.token + '/mod/' + userMsg.mod +
+      '/dir/' + userMsg.dir + '/type/';
+
+    // 提交单个文件方法
+    function submitSingleFile(userMsg) {
+      var file = document.getElementById('file1'); // 获取input
+      var formdata = new FormData(); // 创建表单对象
+      // 使用表单对象中的append方法加入内容
+      formdata.append('fileData', file.files[0]); // 单文件上传
+      uploadUrl += 1; // 拼接url 根据后台接口文档 1代表单文件上传
+      // 发送异步上传请求 注意无需对数据进行处理 也不需要设置请求头
+      $.ajax({
+        url: uploadUrl,
+        type: 'post',
+        processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+        contentType: false, // 不设置Content-type请求头
+        data: formdata,
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }
+
+    // 提交多个文件方法
+    function submitMultiFile(userMsg) {
+      var file = document.getElementById('file2'); // 获取input
+      var formdata = new FormData(); // 创建表单对象
+      // 使用表单对象中的append方法加入内容
+      formdata.append('fileData[]', file.files[0]); // 多文件上传name使用'fileData[]' value取对应的下标
+      formdata.append('fileData[]', file.files[1]); // 多文件上传name使用'fileData[]' value取对应的下标
+      uploadUrl += 2; // 拼接url 根据后台接口文档 2代表多文件上传
+      // 发送异步上传请求 注意无需对数据进行处理 也不需要设置请求头
+      $.ajax({
+        url: uploadUrl,
+        type: 'post',
+        processData: false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+        contentType: false, // 不设置Content-type请求头
+        data: formdata,
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

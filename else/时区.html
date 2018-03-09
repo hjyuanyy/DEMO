@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var time = new Date();
+    // 获取本地时区
+    console.log(time.getTimezoneOffset() / -60); // 东八区 8
+    // // 获取服务器返回的字段
+    // var timezone = '-8'; // 西八区 -8
+
+
+    // 需要根据返回的时区进行时间加减
+    // 对所有的时间戳进行加减 3600 * 相差时区
+    var localTime = new Date();
+    var localTimestamp = parseInt(new Date().getTime() / 1000);
+    var timediff =  timezoneDiff(localTimestamp, '12');
+    console.log(timediff); // 
+    console.log(timediff * 3600); // 
+    
+    function timezoneDiff (date, timezone) { // param1 is serverTime 、param2 is timezone
+      // 服务器返回的时区
+      var timezone = typeof timezone === 'number' ? timezone : +timezone;
+      // 将date转换成number类型
+      var date = typeof date === 'number' ? date : +date;
+      // js获取本地时区 北京8 美国-8 英国 0 isNumber
+      var localTimezone = new Date().getTimezoneOffset() / -60;
+      if (localTimezone === -0) {
+        localTimezone = 0;
+      }
+      var diff = timezone - localTimezone;
+      return diff;
+    }
+  </script>
+</body>
+
+</html>

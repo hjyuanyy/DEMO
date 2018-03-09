@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		#box {
+			width: 50px;
+			height: 50px;
+			background: red;
+			border-radius: 50%;
+			position: absolute;
+			left: 50px;
+			top: 200px;
+		}
+	</style>
+	<script type="text/javascript">
+		onload = function () {
+
+			var oBox = document.getElementById("box");
+			//x方向的速度：
+			var xSpeed = 10;
+			//y方向的速度
+			var ySpeed = -20;
+			//设置定时器，实现运动效果
+			var timer = setInterval(function () {
+				ySpeed += 2;
+				//修改球的位置  向下速度改变
+				var lastleft = oBox.style.left; //记录没赋值之前的left值，就是上一次的left，用于停止计时器
+				oBox.style.left = oBox.offsetLeft + xSpeed + "px";
+				oBox.style.top = oBox.offsetTop + ySpeed + "px";
+
+				var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				//判断是否到达边界
+				if (oBox.offsetTop >= clientHeight - oBox.offsetHeight) {
+					//调整位置到最底部
+					oBox.style.top = clientHeight - oBox.offsetHeight + "px";
+					//反向运动，向上抛,并且y速度减弱，乘以负数可改变y轴运动的方向
+					ySpeed *= -0.6; //变为向上运动，且由负过渡到正，然后又会继续向下
+					if (lastleft == oBox.style.left) { //比较上一次和本次的left值，判断在x轴方向上是否继续存在位移，没有则停止计时器
+						clearInterval(timer);
+					}
+				}
+
+			}, 30);
+
+			//想办法让x速度停下来
+			var timer2 = setInterval(function () {
+				--xSpeed <= 0 ? clearInterval(timer2) : ""; //让x轴方向上的速度也递减
+			}, 400);
+
+		}
+	</script>
+</head>
+
+<body>
+	<div id="box"></div>
+</body>
+
+</html>

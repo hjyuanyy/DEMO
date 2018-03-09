@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    * {
+      margin: 0 auto;
+    }
+
+    ul {
+      list-style: none;
+      width: 200px;
+    }
+
+    li {
+      height: 100px;
+      text-align: center;
+      line-height: 100px;
+    }
+
+    li:nth-of-type(odd) {
+      background-color: #009900;
+    }
+
+    li:nth-of-type(even) {
+      background-color: wheat;
+    }
+
+    .test {
+      display: block;
+      width: 200px;
+      height: 50px;
+      color: #FFFFFF;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    .red {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="box">
+  </ul>
+  <div id="test">
+    <span class="test red">sasd{{test.id}}</span>
+    <div>
+      番茄额<span class="test green">外面{{parseInt(test.id)+8}}</span>
+      <span class="test red">sad{{hello.value}}</span>
+    </div>
+  </div>
+</body>
+<script src="watch.js"></script>
+<script type="text/javascript">
+  var a = new Mvvm({
+    data: {
+      hello: {
+        value: "hello world"
+      },
+      test: {
+        id: "1"
+      },
+      list: [{
+        id: 1
+      }, {
+        id: 2
+      }]
+    },
+    cb: {
+      hello: function () {
+        console.log(arguments)
+      }, //数据改变对应回调
+      test: function () {
+        console.log(arguments)
+      } //数据改变对应回调
+    },
+    temEle: "#test",
+    changeBefore: function (a, val) { //改变之前
+      var old = a.current; //旧值
+      var onew = val; //新值
+      //				console.log(a, val)
+    }
+  });
+  var $scope = a.obj;
+  setInterval(function () {
+    $scope.test.id = Number($scope.test.id) + 1;
+  }, 1000)
+  //		var $scope = a.obj;
+  //		var list = [{
+  //			id: 1,
+  //			txt: "list-1",
+  //			val: 1
+  //		}, {
+  //			id: 2,
+  //			txt: "list-2",
+  //			val: 1
+  //		}, {
+  //			id: 3,
+  //			txt: "list-3",
+  //			val: 1
+  //		}, {
+  //			id: 4,
+  //			txt: "list-4",
+  //			val: 1
+  //		}, {
+  //			id: 5,
+  //			txt: "list-5",
+  //			val: 1
+  //		}];
+  //
+  //		a._bind('list', list, function(oold, onew) { //value atrr cb
+  //			console.log(12312)
+  //			init($scope.list);
+  //		});
+  //		init($scope.list);
+  //		setInterval(function() {
+  //			$scope.list[0].val += 1;
+  //		}, 2000)
+  //		setTimeout(function() {
+  //			$scope.list.push({
+  //				id: 6,
+  //				txt: "list-6",
+  //				val: 1
+  //			})
+  //		}, 1000)
+
+  //		function init(a) {
+  //			var html = "<li key='{{id}}'>{{txt}}</li>";
+  //			document.getElementById("box").innerHTML = "";
+  //			$scope.list.map(function(x, y) {
+  //				var ohtml = html.replace(/{{id}}/gi, x.id).replace(/{{txt}}/gi, x.txt + x.val);
+  //				var hello = document.createElement("hello");
+  //				hello.innerHTML = ohtml;
+  //				var newNode = hello.childNodes[0].cloneNode(true);
+  //				document.getElementById("box").appendChild(newNode);
+  //				//var oall=document.createDocumentFragment();
+  //				//oall.appendChild(newNode);
+  //			})
+  //		}
+
+  /********************************************************/
+  //		var target = {
+  //			ele: "div",
+  //			data: "{{g.id}}",
+  //			current: "123"
+  //		}
+
+  //		$scope.hello = {
+  //			value: "hello world"
+  //		}
+  //		var test = {
+  //			id: "1"
+  //		}
+  //		a._bind('test', test, function() { //value atrr cb
+  //			a._dataDeal();
+  //		});
+  //		a._dataDeal(); //数据绑定完成后，再模版渲染。
+  //		setTimeout(function() {
+  //			$scope.test.id = Number($scope.test.id) + 1;
+  //		}, 2000)
+  //		function Oag() {
+  //			this.ele = document.getElementById("test");
+  //			this.bindArea = null; //储存容器
+  //			this._init();
+  //		}
+  //		Oag.prototype = {
+  //			constructor: Oag,
+  //			_init: function() {
+  //				this.bindArea = this._findTextNode(this.ele);
+  //				this._dataDeal();
+  //			},
+  //			_findTextNode: function(ele) {
+  //				var arr = [];
+  //				var target = ele.childNodes;
+  //				for(var i = 0; i < target.length; i++) {
+  //					var temp = target[i];
+  //					var nodeVal = temp.nodeValue;
+  //					if(temp.nodeType == 3 && !/^\s*$/.test(nodeVal)) {
+  //						var model = nodeVal.match(/{{.+}}/gi);
+  //						model && arr.push({
+  //							ele: temp,
+  //							data: nodeVal //这里保存值,如:123{{a.type}}
+  //						});
+  //					}
+  //					if(temp.nodeType == 1) {
+  //						arr = arr.concat(this._findTextNode(temp));
+  //					}
+  //				}
+  //				return arr;
+  //			},
+  //			_dataDeal: function(a) {
+  //				var arr = a || this.bindArea;
+  //				for(var i = 0; i < arr.length; i++) {
+  //					var temp = arr[i];
+  //					var evalVal = temp.data.match(/{{.+}}/)[0].replace(/{{|}}/gi, "") //目前只支持单个{{}}，不支持一个文本节点含多个'{{}}'的数据处理
+  //					var define_result;
+  //					try {
+  //						with($scope) { //加上局部作用域;(angular的$root的实现:$scope.$root=$rootScope(利用地址指向))
+  //							eval('define_result=' + evalVal);
+  //						}
+  //						var onew = temp.data.replace(/{{.+}}/, define_result);
+  //						if(temp.current != onew) {
+  //							temp.current = onew;
+  //							temp.ele.nodeValue = temp.current; //赋值					
+  //						}
+  //					} catch(e) {
+  //						console.error("error");
+  //					}
+  //				}
+  //			}
+  //		}
+  //		b = new Oag();
+  //		setTimeout(function() {
+  //			$scope.test.id = Number($scope.test.id) + 1;
+  //		}, 2000)
+</script>
+
+</html>

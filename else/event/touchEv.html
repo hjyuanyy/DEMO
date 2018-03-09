@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    var box = document.querySelector('#box');
+    var touchEv = {
+      start: {
+        type: 'touchstart',
+        func: function (e) {
+          console.log('start');
+        }
+      },
+      move: {
+        type: 'mousemove',
+        func: function (e) {
+          console.log('move');
+          // document.write('move');
+        }
+      },
+      end: {
+        type: 'touchend',
+        func: function (e) {
+          console.log('end');
+        }
+      }
+    };
+    box['on' + touchEv.start.type] = touchEv.start.func;
+    box['on' + touchEv.move.type] = touchEv.move.func;
+    box['on' + touchEv.end.type] = touchEv.end.func;
+  </script>
+</body>
+</html>
