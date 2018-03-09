@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./move.js"></script>
+  <style>
+    .box {
+      position: relative;
+      width: 1000px;
+      height: 60px;
+      border: 1px solid #ccc;
+      margin: 0 auto;
+    }
+
+    .moveEl {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ffa000;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+    }
+
+    .moveEl4 {
+      left: 200px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="moveEl1 moveEl"></div>
+  </div>
+  <div class="box">
+    <div class="moveEl2 moveEl"></div>
+  </div>
+  <div class="box">
+    <div class="moveEl3 moveEl"></div>
+  </div>
+  <div class="box">
+    <div class="moveEl4 moveEl"></div>
+  </div>
+  <script>
+    // elastic 弹性
+    // collision 碰撞
+    // wave 断断续续加速减速
+    // opposite 先反向移动一段距离，再正向移动，后超过终点一段距离，再反向回到终点位置
+    var moveEl1 = document.querySelector('.moveEl1');
+    move['elastic']([0, 770], 2000, function (v) {
+      moveEl1.style.left = v + 'px';
+    })
+
+    var moveEl2 = document.querySelector('.moveEl2');
+    move['collision']([0, 770], 2000, function (v) {
+      moveEl2.style.left = v + 'px';
+    })
+
+    var moveEl3 = document.querySelector('.moveEl3');
+    move['wave']([0, 770], 2000, function (v) {
+      moveEl3.style.left = v + 'px';
+    })
+
+    var moveEl4 = document.querySelector('.moveEl4');
+    move['opposite']([200, 770], 2000, function (v) {
+      moveEl4.style.left = v + 'px';
+    })
+  </script>
+</body>
+
+</html>
