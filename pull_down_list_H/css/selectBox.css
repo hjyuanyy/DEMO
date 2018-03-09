@@ -1,0 +1,106 @@
+.selectBox {
+  margin: 40px auto;
+  position: relative;
+  width: 120px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.selectBox_trigon {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  display: inline-block;
+  border: 7px solid transparent;
+  border-top: 7px solid #000;
+}
+
+.selectBox_action {
+  transform: rotateZ(-180deg);
+  top: -1px;
+}
+
+.selectBox ul {
+  height: 100%;
+}
+
+.selectBox > ul > li {
+  position: relative;
+  height: 100%;
+  line-height: 20px;
+  text-indent: 10px;
+  user-select: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.selectBox > ul > li.selectBox_cur {
+  color: #000;
+  text-indent: 14px;
+}
+
+.selectBox > ul > li:last-child {
+  height: 100%;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.selectBox > ul > li:not(:first-child) {
+  background-color: #2C3E50;
+}
+
+.selectBox > ul > li:not(:first-child) .second_nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: none;
+}
+
+/* 二级导航偏移量由脚本控制 */
+
+/* .selectBox > ul > li:not(:first-child) .second_nav.second_nav1 {
+  left: 101%;
+}
+
+.selectBox > ul > li:not(:first-child) .second_nav.second_nav2 {
+  left: 202%;
+}
+
+.selectBox > ul > li:not(:first-child) .second_nav.second_nav3 {
+  left: 303%;
+} */
+
+.selectBox > ul > li:not(:first-child) ul li {
+  background-color: #2C3E50;
+}
+
+.selectBox > ul > li:not(:first-child) ul li:first-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.selectBox > ul > li:not(:first-child) ul li:last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.selectBox > ul > li:not(:first-child):hover {
+  background-color: #16B092;
+}
+
+.selectBox > ul > li:not(:first-child):hover ul {
+  display: block;
+}
+
+.selectBox > ul > li:not(:first-child):hover ul li:hover {
+  background-color: #16B092;
+}
+
+.second_nav {
+  display: inline-block;
+}
+
+

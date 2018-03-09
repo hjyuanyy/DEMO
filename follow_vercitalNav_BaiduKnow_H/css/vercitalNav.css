@@ -1,0 +1,59 @@
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 100%;
+}
+
+.side {
+  position: fixed;
+  z-index: 2;
+  user-select: none;
+}
+
+.side li {
+  visibility: hidden;
+  /* visibility: visible; */
+  cursor: pointer;
+}
+
+.section {
+  position: relative;
+}
+
+.section li {
+  height: 600px;
+  border-left: 1px dashed #ccc;
+  margin-left: 16px;
+}
+
+.section li:nth-child(1) {background: #f5f5f5}
+.section li:nth-child(2) {background: #cfd8dc}
+.section li:nth-child(3) {background: #ffe0b2}
+.section li:nth-child(4) {background: #ffccbc}
+.section li:nth-child(5) {background: #d7ccc8}
+.section li:nth-child(6) {background: #b2ebf2}
+.section li:nth-child(7) {background: #F49876}
+.section li:nth-child(8) {background: #D9AB9B}
+.section li:nth-child(9) {background: #448CD6}
+.section li:nth-child(10) {background:#E2BFDB}
+
+.section li div {
+  margin-left: -17px;
+  background-color: #5BC648;
+  user-select: none;
+}
+
+.navIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #D0D0D0;
+  text-align: center;
+  line-height: 34px;
+  color: #fff;
+}
+
+.navIconAction {
+  background-color: #5BC648;
+}

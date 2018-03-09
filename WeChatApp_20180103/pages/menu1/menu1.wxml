@@ -1,0 +1,30 @@
+<!-- wxParse -->
+<import src="../../wxParse/wxParse.wxml"/>
+<!-- weChatView -->
+<view class="container">
+  <view class="top" bindtap="imgPreview">
+    <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="setCurrent">
+      <block wx:for="{{imgUrls}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="center">
+    <view class="company">CompanyName</view>
+    <view class="info bottom_gap">基本信息</view>
+    <view class="tag bottom_gap">
+      <view>更高</view>
+      <view>更快</view>
+      <view>更远</view>
+    </view>
+    <view class="map" bindtap="to_map">
+      <text decode="{{true}}">&nbsp;<text class="iconfont icon-ditu"></text>&nbsp;地址：广东省深圳市-xxxx-xxxx-xxxx</text>
+    </view>
+    <!-- wxParseView -->
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+  </view>
+</view>

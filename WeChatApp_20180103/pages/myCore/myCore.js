@@ -1,0 +1,4 @@
+// myCore
+Page({
+  data: {}
+})

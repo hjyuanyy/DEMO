@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ring-menu</title>
+  <link rel="stylesheet" href="./css/font-icon.css">
+  <link rel="stylesheet" href="./css/ring_menu.css">
+</head>
+
+<body>
+  <div class="chart-menu-circle">
+    <div class="chart-menu-ring">
+      <a class="chart-menu-item chart-icon-day" data-type="day"></a>
+      <a class="chart-menu-item chart-icon-week" data-type="week" style="font-size:35px;"></a>
+      <a class="chart-menu-item chart-icon-month" data-type="month"></a>
+      <a class="chart-menu-item chart-icon-year" data-type="year"></a>
+      <!-- 可增加选项 -->
+    </div>
+    <a class="chart-menu-center chart-icon-day"></a>
+  </div>
+  <script src="./js/ring_menu.js"></script>
+  <script src="./js/drag.js"></script>
+  <script>
+    _ringMenu({
+      // url: param.url,
+      chartMenuRing: '.chart-menu-ring',
+      chartMenuCenter: '.chart-menu-center',
+      chartMenuCircle: '.chart-menu-circle',
+      chartMenuItem: '.chart-menu-item',
+      chartLoading: '.inmoney_chart_loading',
+      chartMenuOpen: 'chart-menu-open',
+      // 点击回调
+      update: function (ajaxParam) {
+        console.log(ajaxParam);
+      }
+    })
+
+    // 拖拽menu
+    var targetMainEle = document.querySelectorAll('.chart-menu-center')[0];
+    var targetWrapEle = document.querySelectorAll('.chart-menu-circle')[0];
+    var dragMethod = _drag(); // 获取拉拽方法
+    dragMethod.drag(targetMainEle, targetWrapEle);
+  </script>
+</body>
+
+</html>

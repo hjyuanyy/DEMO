@@ -1,0 +1,14 @@
+/* myCore */
+.container {
+  width: 100%;
+  height: 200rpx;
+  line-height: 200rpx;
+}
+
+.header {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #ff5500;
+}

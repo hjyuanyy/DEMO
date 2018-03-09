@@ -1,0 +1,39 @@
+/**index.wxss**/
+
+.banner {
+  width: 100%;
+  height: 400rpx;
+}
+
+.banner .slide-image {
+  width: 100%;
+}
+
+.menu {
+  width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	background: #fff;
+}
+
+.menu-item {
+  flex: 0 0 25%;
+  max-width: 25%;
+	margin-bottom: -1rpx;
+  padding: 30rpx;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.menu-item image{
+	width: 110rpx;
+  height: 110rpx;
+  margin-bottom: 10rpx;
+}
+
+.menu-item text{
+	display: block;
+	font-size: 30rpx;
+	line-height: 30rpx;
+  white-space: nowrap;
+}
