@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>消息提示框</title>
+  <style>
+    .newMsgPrompt_container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: 0 auto;
+      width: 0;
+      height: 0;
+      border-radius: 10px;
+      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.3);
+      background-color: #fff;
+      text-align: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      opacity: 1;
+      overflow: hidden;
+    }
+
+    .newMsgPrompt_show {
+      -webkit-transition: all 0.5s 0.25s;
+      transition: all 0.5s 0.25s;
+      width: 520px;
+      height: 190px;
+      opacity: 1;
+    }
+
+    .newMsgPrompt_hide {
+      -webkit-transition: all 0.5s 0.25s;
+      transition: all 0.5s 0.25s;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+
+    .newMsgPrompt_container div:nth-child(1) {
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 21px;
+    }
+
+    .newMsg_content {
+      font-size: 15px;
+    }
+
+    .newMsg_dispose_menu {
+      position: absolute;
+      bottom: 26px;
+      width: 125px;
+      height: 45px;
+      line-height: 45px;
+      border-radius: 6px;
+      color: #32b5cb;
+      border: 1px solid #32b5cb;
+      cursor: pointer;
+    }
+
+    .newMsgPrompt_container .newMsg_menu_active {
+      background-color: #32b5cb;
+      color: #fff;
+    }
+
+    .newMsg_goto {
+      left: 23.4%;
+    }
+
+    .newMsg_later {
+      right: 23.4%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="newMsgPrompt_container">
+    <div class="newMsgPrompt_title">提示</div>
+    <div class="newMsg_content">此为提示详细内容</div>
+    <div class="newMsg_goto newMsg_dispose_menu newMsg_menu_active">前往处理</div>
+    <div class="newMsg_later newMsg_dispose_menu">稍后提醒</div>
+  </div>
+  <script>
+    var _newMsgPrompt = {
+      // 获取元素
+      getEle: function (ele) {
+        return document.querySelector(ele);
+      },
+      // 初始化
+      init: function (param) {
+        // 参数
+        var url = param.url,
+          clearMessage = param.clearMessage,
+          container = param.container,
+          content = param.content,
+          goto = param.goto,
+          later = param.later,
+          single = param.single,
+          batch = param.batch,
+          menuActive = param.menuActive,
+          showClass = param.showClass,
+          hideClass = param.hideClass,
+          laterSecond = param.laterSecond;
+
+        this['menuActive'] = menuActive;
+        this['showClass'] = showClass;
+        this['hideClass'] = hideClass;
+        // 获取容器元素
+        var containerDom = this.getEle(container),
+          // 获取文本元素
+          contentDom = this.getEle(content),
+          // 前往处理
+          gotoBtn = this.getEle(goto),
+          // 稍后处理
+          laterBtn = this.getEle(later);
+
+        this['containerDom'] = containerDom;
+        this['contentDom'] = contentDom;
+        this['gotoBtn'] = gotoBtn;
+        this['laterBtn'] = laterBtn;
+        // 前往处理
+        gotoBtn.onclick = function () {
+          // -高亮
+          laterBtn.classList.remove(menuActive);
+          gotoBtn.classList.add(menuActive);
+          // -容器隐藏
+          containerDom.classList.remove(showClass);
+          containerDom.classList.add(hideClass);
+          // todosomething...
+        };
+        // 稍后提醒
+        laterBtn.onclick = function () {
+          // -高亮
+          gotoBtn.classList.remove(menuActive);
+          laterBtn.classList.add(menuActive);
+          // -开延时器
+          setTimeout(function () {
+            // todosomething...
+          }, laterSecond);
+          // -容器隐藏
+          containerDom.classList.remove(showClass);
+          containerDom.classList.add(hideClass);
+        };
+        // todosomething...
+      },
+      // 弹出
+      showAlert: function (param) {
+        // 文本内容
+        var content = param.msgContent;
+        // DOM
+        var containerClassList = this.containerDom.classList,
+          contentDom = this.contentDom;
+        // 设置文本
+        contentDom.innerHTML = content;
+        // 显示
+        containerClassList.remove(this.hideClass);
+        containerClassList.add(this.showClass);
+      }
+    };
+
+    _newMsgPrompt.init({
+      url: '', // 查询是否存在未处理订单
+      clearMessage: '', // 消息清0
+      container: '.newMsgPrompt_container', // 容器
+      title: '.newMsgPrompt_title', // 提示框标题
+      content: '.newMsg_content', // 提示框显示内容
+      goto: '.newMsg_goto', // 前往处理按钮
+      later: '.newMsg_later', // 稍后提示按钮
+      menuActive: 'newMsg_menu_active', // 按钮选项高亮类名
+      showClass: 'newMsgPrompt_show', // 容器显示类名
+      hideClass: 'newMsgPrompt_hide', // 容器隐藏类名
+      laterSecond: 60000 // 稍后提醒 单位ms
+    });
+
+    // 延迟执行
+    setTimeout(function () {
+      _newMsgPrompt.showAlert({
+        msgContent: 'test'
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

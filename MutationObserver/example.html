@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS监听DOM元素的改变</title>
+</head>
+
+<body>
+  <button class="btn">btn</button>
+  <div class="target"></div>
+  <script>
+    // Firefox和Chrome早期版本中带有前缀  
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
+    // 选择进行监听的DOM
+    var target = document.querySelector('.target');
+
+    // 创建观察者对象
+    var observer = new MutationObserver(function (mutations) {
+      // mutations isArr
+      mutations.forEach(function (mutation) {
+        // mutation isObj
+        console.log(mutation);
+      })
+    })
+
+    // 配置观察选项 
+    var config = {
+      attributes: true,
+      childList: true,
+      characterData: true
+    };
+
+    // 传入目标节点和观察选项，开启观察
+    observer.observe(target, config);
+
+    // 停止观察  
+    // observer.disconnect();
+
+    var btn = document.querySelector('.btn');
+    btn.onclick = function () {
+      target.innerHTML = "YYYY-MM-DD";
+    }
+  </script>
+</body>
+
+</html>

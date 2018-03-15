@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>消息提示框</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      height: 100%;
+      /* background-color: #ccc; */
+    }
+
+    .user_msg_alert {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      /* bottom: 0; */
+      left: 0;
+      margin: auto;
+      width: 0px;
+      height: 0px;
+      border-top: 3px solid #F2C260;
+      background-color: #fff;
+      user-select: none;
+      text-align: center;
+      overflow: hidden;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    .user_msg_alert_title {
+      margin: 7% auto 2%;
+    }
+
+    .user_msg_alert_content {
+      /* margin: 10px auto 0px; */
+      color: #99999E;
+    }
+
+    .user_msg_alert_affirm {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 15%;
+      margin: auto;
+      width: 110px;
+      height: 38px;
+      line-height: 38px;
+      background-color: #F2C260;
+      border-radius: 19px;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .user_msg_alert_affirm:hover {
+      transform: scale(1.05);
+    }
+
+    .user_msg_alert_close {
+      position: absolute;
+      top: 2%;
+      right: 2%;
+      width: 35px;
+      height: 35px;
+      line-height: 30px;
+      font-size: 30px;
+      color: #99999E;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .user_msg_alert_close:hover {
+      color: #000;
+    }
+
+    .user_msg_alert_show {
+      transition: all 0.7s ease-out;
+      width: 520px;
+      height: 190px;
+      opacity: 1;
+      border-radius: 0;
+    }
+
+    .user_msg_alert_hide {
+      transition: all 0.7s ease-out;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      border-radius: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="user_msg_alert">
+    <div class="user_msg_alert_title">提示标题</div>
+    <div class="user_msg_alert_content">此为提示详细内容</div>
+    <div class="user_msg_alert_affirm">确认</div>
+    <div class="user_msg_alert_close">×</div>
+  </div>
+  <script>
+    // 用户消息提示框
+    var _userMsgAlert = {
+      ele: function (ele) {
+        return document.querySelector(ele);
+      },
+      init: function (param) {
+        // 获取Dom
+        var parentDom = this.ele(param.parentEle),
+          contentDom = this.ele(param.contentEle),
+          affirmDom = this.ele(param.affirmEle),
+          closeDom = this.ele(param.closeEle),
+          show = param.show, // 显示类名
+          hide = param.hide; // 隐藏类名
+
+          this.show = param.show;
+          this.hide = param.hide;
+
+        this.parentDom = parentDom;
+        this.contentDom = contentDom;
+
+        // 事件绑定
+        var parentDomClassList = parentDom.classList;
+        affirmDom.onclick = function () {
+          // 确认按钮 目的隐藏
+          parentDomClassList.remove(show);
+          parentDomClassList.add(hide);
+        }
+        closeDom.onclick = function () {
+          // 退出按钮 目的隐藏
+          parentDomClassList.remove(show);
+          parentDomClassList.add(hide);
+        }
+        
+      },
+      showAlert: function (param) {
+        var msgContent = param.msgContent;
+        // show 方法在监听到内容时触发
+        this.parentDom.classList.remove(this.hide);
+        this.parentDom.classList.add(this.show);
+        // 设置消息内容
+        this.contentDom.innerHTML = msgContent;
+      }
+    };
+
+    // 用户消息提示框初始化
+    _userMsgAlert.init({
+      parentEle: '.user_msg_alert',
+      contentEle: '.user_msg_alert_content',
+      affirmEle: '.user_msg_alert_affirm',
+      closeEle: '.user_msg_alert_close',
+      show: 'user_msg_alert_show',
+      hide: 'user_msg_alert_hide'
+    })
+
+    setTimeout(function () {
+      _userMsgAlert.showAlert({
+        msgContent: 'test'
+      });
+    }, 1000)
+  </script>
+</body>
+
+</html>
