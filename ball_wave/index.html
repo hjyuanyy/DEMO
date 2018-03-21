@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ball_wave</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+
+    ul li {
+      list-style: none;
+    }
+
+    .wave_rise_container {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      border: 10px solid #ccc;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .seabed {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+      background-color: #009FD9;
+    }
+
+    .wave_box {
+      position: absolute;
+      bottom: 200px;
+      width: 100%;
+      height: 60px;
+      user-select: none;
+    }
+
+    .wave_top,
+    .wave_bottom {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .wave_top {
+      top: -10px;
+    }
+
+    .wave_top li,
+    .wave_bottom li {
+      position: absolute;
+      top: 0;
+      width: 1920px;
+      height: 100%;
+    }
+
+    .wave_top li:nth-child(1) {
+      animation: wave_1 5s linear 0s infinite normal;
+      left: 0;
+    }
+
+    .wave_top li:nth-child(2) {
+      animation: wave_2 5s linear 0s infinite normal;
+      left: 1920px;
+    }
+
+    .wave_bottom li:nth-child(1) {
+      animation: wave_1 15s linear 0s infinite normal;
+      left: 0;
+    }
+
+    .wave_bottom li:nth-child(2) {
+      animation: wave_2 15s linear 0s infinite normal;
+      left: 1920px;
+    }
+
+    @keyframes wave_1 {
+      0% {
+        left: 0;
+      }
+      100% {
+        left: -1920px;
+      }
+    }
+
+    @keyframes wave_2 {
+      0% {
+        left: 1920px;
+      }
+      100% {
+        left: 0px;
+      }
+    }
+
+    /* 特效2 */
+
+    .seabed_rise {
+      animation: seabed_rise 6s ease-in-out forwards;
+    }
+
+    @keyframes seabed_rise {
+      0% {
+        height: 200px;
+      }
+      100% {
+        height: 800px;
+        animation-play-state: paused;
+      }
+    }
+
+    .wave_rise {
+      animation: wave_rise 6s ease-in-out forwards;
+    }
+
+    @keyframes wave_rise {
+      0% {
+        bottom: 200px;
+      }
+      100% {
+        bottom: 800px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wave_rise_container">
+    <div class="wave_box">
+      <ul class="wave_top">
+        <li>
+          <img src="./img/wave_02.png" alt="">
+        </li>
+        <li>
+          <img src="./img/wave_02.png" alt="">
+        </li>
+      </ul>
+      <ul class="wave_bottom">
+        <li>
+          <img src="./img/wave_01.png" alt="">
+        </li>
+        <li>
+          <img src="./img/wave_01.png" alt="">
+        </li>
+      </ul>
+    </div>
+    <div class="seabed"></div>
+  </div>
+
+  <script>
+    var seabed = document.querySelector('.seabed');
+    var waveBox = document.querySelector('.wave_box');
+    seabedClassList = seabed.classList;
+    waveBoxClassList = waveBox.classList;
+    document.body.onclick = function () {
+      // 判断类名是否移除
+      for (var i = 0, l = seabedClassList.length; i < l; i++) {
+        if (seabedClassList[i] === 'seabed_rise') {
+          return;
+        }
+      }
+      // 添加动画类名
+      seabedClassList.add('seabed_rise');
+      waveBoxClassList.add('wave_rise');
+      // 【dev】
+      setTimeout(function () {
+        // 移除动画类名
+        seabedClassList.remove('seabed_rise');
+        waveBoxClassList.remove('wave_rise');
+      }, 7000)
+    }
+  </script>
+</body>
+
+</html>
